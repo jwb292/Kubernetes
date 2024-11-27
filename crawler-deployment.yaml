@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synergychat-crawler
+  namespace: crawler
+spec:
+  replicas: 1  # Single Pod with multiple containers
+  selector:
+    matchLabels:
+      app: synergychat-crawler
+  template:
+    metadata:
+      labels:
+        app: synergychat-crawler
+    spec:
+      volumes:
+        - name: synergychat-api-volume
+          persistentVolumeClaim:
+            claimName: synergychat-api-pvc
+      containers:
+        - name: synergychat-crawler-1
+          image: bootdotdev/synergychat-crawler:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CRAWLER_DB_PATH
+              value: "/persist/db.json"
+          volumeMounts:
+            - name: synergychat-api-volume
+              mountPath: /persist 
+        - name: synergychat-crawler-2
+          image: bootdotdev/synergychat-crawler:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CRAWLER_DB_PATH
+              value: "/persist/db.json"
+          volumeMounts:
+            - name: synergychat-api-volume
+              mountPath: /persist
+        - name: synergychat-crawler-3
+          image: bootdotdev/synergychat-crawler:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CRAWLER_DB_PATH
+              value: "/persist/db.json"
+          volumeMounts:
+            - name: synergychat-api-volume
+              mountPath: /persist

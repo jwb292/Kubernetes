@@ -15,7 +15,7 @@ metadata:
   uid: ae4cd2a6-8dfe-4b1c-a62d-354d53f8f8a0
 spec:
   progressDeadlineSeconds: 600
-  replicas: 10
+  replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -44,7 +44,7 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 30
 status:
-  availableReplicas: 10
+  availableReplicas: 3
   conditions:
   - lastTransitionTime: "2024-11-25T11:55:22Z"
     lastUpdateTime: "2024-11-25T11:55:28Z"
